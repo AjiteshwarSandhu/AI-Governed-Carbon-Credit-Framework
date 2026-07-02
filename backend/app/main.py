@@ -15,7 +15,7 @@ app = FastAPI(
 
 origins = [
     "http://localhost:5173",
-    "https://ai-governed-carbon-credit-framework-dusky.vercel.app",
+    "https://ai-governed-carbon-credit-framework-y8o6-4frofzd4v-capstone-89.vercel.app",
 ]
 
 app.add_middleware(
