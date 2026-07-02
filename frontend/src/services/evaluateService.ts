@@ -1,4 +1,4 @@
-const API = "http://127.0.0.1:8000";
+import api from "./api";
 
 export interface EvaluationResponse {
   success: boolean;
@@ -32,23 +32,15 @@ export interface EvaluationResponse {
 export async function evaluateProject(
   data: any
 ): Promise<EvaluationResponse> {
+
   console.log("Sending Request:", data);
 
-  const response = await fetch(`${API}/evaluate-project`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+  const response = await api.post(
+    "/evaluate-project",
+    data
+  );
 
-  const result = await response.json();
+  console.log("Backend Response:", response.data);
 
-  console.log("Backend Response:", result);
-
-  if (!response.ok) {
-    throw new Error(result.detail || "Evaluation Failed");
-  }
-
-  return result;
+  return response.data;
 }
