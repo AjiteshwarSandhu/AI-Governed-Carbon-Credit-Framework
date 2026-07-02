@@ -4,9 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import app.models
 
 from app.api.routes import router
-
 from app.api.review_routes import router as review_router
-
 from app.api.governance_routes import router as governance_router
 
 app = FastAPI(
@@ -15,19 +13,31 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Allow React frontend to connect
+origins = [
+    "http://localhost:5173",
+    "https://ai-governed-carbon-credit-framework-dusky.vercel.app",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],      # Later replace "*" with your React URL
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Register API routes
 app.include_router(router)
 app.include_router(review_router)
 app.include_router(governance_router)
+
+
+@app.get("/")
+def root():
+    return {
+        "message": "AI-Governed Blockchain Carbon Credit Validation Backend",
+        "status": "running"
+    }
+
 
 @app.get("/health")
 def health():
