@@ -9,11 +9,8 @@ import {
   LogOut,
   Settings,
   User,
-  Copy,
   X,
-  Cpu,
   Activity,
-  Network,
 } from "lucide-react";
 
 import { useEffect, useRef, useState } from "react";
