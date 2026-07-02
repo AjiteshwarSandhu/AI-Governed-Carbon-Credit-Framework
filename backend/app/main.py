@@ -14,19 +14,11 @@ app = FastAPI(
 )
 
 # =========================
-# CORS CONFIGURATION
+# CORS
 # =========================
 app.add_middleware(
     CORSMiddleware,
     allow_origin_regex=r"https://.*\.vercel\.app",
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Allow local frontend as well
-app.add_middleware(
-    CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
@@ -37,12 +29,11 @@ app.add_middleware(
 )
 
 # =========================
-# REGISTER ROUTES
+# ROUTES
 # =========================
 app.include_router(router)
 app.include_router(review_router)
 app.include_router(governance_router)
-
 
 # =========================
 # ROOT
@@ -54,9 +45,8 @@ def root():
         "status": "Running"
     }
 
-
 # =========================
-# HEALTH CHECK
+# HEALTH
 # =========================
 @app.get("/health")
 def health():
